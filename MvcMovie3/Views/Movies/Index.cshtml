@@ -1,0 +1,175 @@
+﻿@model IEnumerable<MvcMovie.Models.Movie>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<body>
+    <h2>Index</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReleaseDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReleaseDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+
+    <h1>Редактирование формы :</h1>
+    <div class="form-group" id="f5">
+            <label for="usr"></label>
+            <input type="text" class="form-control" id="usr" placeholder="Заголовок формы">
+        </div>
+    <div class="form-group">
+        <label for="comment"></label>
+        <textarea class="form-control" rows="5" id="comment" placeholder="Описание формы"></textarea>
+    </div>
+
+    <h3>Поля формы: </h3>
+    <div id="ho">
+        <div class="elem">
+            <div class="box" id="box1">
+                <div class="minibox6">
+                    <button type="button" class="btn btn-primary k4 del_b" onclick="this.parentNode.parentNode.parentNode.remove();">Удалить поле</button>
+                </div>
+                <div class="minibox">
+                    <div class="form-group2">
+                        <label for="usr"></label>
+                        <input type="text" class="form-control" id="usr" placeholder="Заголовок поля">
+                    </div>
+                    <form name="f1">
+                        <select name="cars" class="custom-select" id="s1" onchange="var n = this.options.selectedIndex;
+                              var in1 = this.parentNode.parentNode.parentNode.childNodes[5];
+                              var in2 = this.parentNode.parentNode.parentNode.childNodes[7];
+                              showFirst(n,in1,in2);">
+                            <option selected>Тип поля</option>
+                            <option value="Текст-строка" id="sel1">Текст-строка</option>
+                            <option value="Текст-абзац">Текст-абзац</option>
+                            <option value="Один из списка">Один из списка</option>
+                            <option value="Несколько из списка">Несколько из списка</option>
+                            <option value="Раскрывающийся список">Раскрывающийся список</option>
+                        </select>
+                    </form>
+                </div>
+                <div class="form-group3 group">
+                    <label for="comment"></label>
+                    <textarea class="form-control" rows="5" id="comment"></textarea>
+                </div>
+                <div class="form-group4 group_2">
+                    <label for="usr"></label>
+                    <input type="text" class="form-control" id="usr" placeholder="Placeholder">
+                </div>
+                <form>
+                    <div class="custom-control custom-checkbox minibox3">
+                        <input type="checkbox" class="custom-control-input" id="customCheck" name="example1">
+                        <label class="custom-control-label" for="customCheck">Обязательный вопрос</label>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="container">
+        </div>
+    </div>
+
+    <div class="minibox4">
+        <button type="button" class="btn btn-primary k3" onclick="addForm()">Добавить поле</button>
+    </div>
+
+    <div class="minibox2">
+        <button type="button" class="btn btn-primary k1">Закрыть</button>
+        <button type="button" class="btn btn-primary k2">Сохранить</button>
+    </div>
+
+    <script>
+        //функция добавления формы
+        function addForm() {
+            var parent = document.getElementById('ho');
+            var elem = parent.querySelector('.elem');
+            var clone = elem.cloneNode(true);
+            parent.appendChild(clone);
+        }
+
+        // функция появления блоков при выборе элемента из выпадающего списка
+        function showFirst(n, in1, in2) {
+
+            if (n == 0) {
+                //при начальном состоянии блоки невидимы
+                in1.style.display = 'none';
+                in2.style.display = 'none';
+            }
+            //при выборе первых трех элементов появляется первый блок
+            if ((n < 3) && (n > 0)) {
+                in1.style.display = 'block';
+                in2.style.display = 'none';
+
+            }
+            //при выборе последних двух элементов появляется второй блок
+            if (n > 2) {
+                in1.style.display = 'none';
+                in2.style.display = 'block';
+            }
+        }
+
+
+       /* function SendFormDate() {
+            var Newpost = {};
+            for (var i = 0; i < 5; i++) {
+                var Inputs = document.getElementsByTagName('input');
+                Newpost.push(input);
+            }
+                  
+        }
+
+        fetch('/controller/index', {
+            method: 'post',
+            body: JSON.stringify(Newpost)
+        })
+            .then(function (response) {
+                return response.json()
+            })
+            .then(function (data) {
+                console.log('post request response data',data)
+            })*/
+              
+    </script>
+
+</body>
